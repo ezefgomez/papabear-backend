@@ -1,0 +1,19 @@
+{
+  "articulos": [
+    {
+    "title": "REMERA",
+    "price": 4500,
+    "id": 1
+    },
+    {
+        "title": "ZAPATILLAS",
+        "price": 25000,
+        "id": 2
+    },
+    {
+        "title": "PANTALON",
+        "price": 8000,
+        "id": 3
+    }
+  ]
+}
