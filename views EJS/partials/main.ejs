@@ -1,0 +1,38 @@
+
+    <form action="/roductos" method="post">
+
+        <div class="form-group">
+            <label for="formGroupExampleInput"> Nombre del producto: </label>
+            <input type="text" name="title" id="title">
+        </div>
+        <div class="form-group">
+            <label for="formGroupExampleInput2"> Precio: </label>
+            <input type="text" name="price" id="price">
+        </div>
+        <div class="form-group">
+            <label for="formGroupExampleInput3"> ID del Producto: </label>
+            <input type="number" name="id" id="id">
+        </div>
+
+        <input type="submit" value="Enviar">
+
+    </form>
+
+    <% if (productos.length > 0) { %>
+
+    <table>
+        <thead> Nombre </thead>
+        <thead> Precio </thead>
+        <thead> ID del producto </thead>
+        <tbody>
+            <% productos.forEach(function(productos) { %>
+            <tr>
+                <td><%= producto.title %></td>
+                <td><%= producto.price %></td>
+                <td><%= producto.id %></td>
+            </tr>
+            <% }) %>
+        </tbody>
+    </table>
+    <% } %>
+

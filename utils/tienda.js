@@ -1,10 +1,7 @@
-const express = require('express');
+const fs = require("fs");
+const routerArticulos = require("../routes/articulos");
 
-const app = express();
-
-const PORT = 8080;
-
-const fs = require("fs")
+const encoding = "utf-8"
 
 class tienda { 
     constructor(articulos) {
@@ -111,12 +108,8 @@ app.delete('/api/articulos:id', (req, res) => {
     };
 })
 
+// ---- Practica para definir enrutador
+
+app.use("/api/articulos2", routerArticulos)
+
 module.exports = tienda;
-
-const server = app.listen(PORT, () => {
-    console.log(`Servidor http escuchando el puerto ${server.address().port}`)
-})
-
-// req = peticion, res = respuesta
-
-server.on("error", error => console.log(`Error en servidor ${error}`))
