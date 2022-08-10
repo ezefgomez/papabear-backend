@@ -1,14 +1,20 @@
 const express = require('express');
-
+const app = express();
 const Tienda = require("./utils/tienda")
 const productosName = "productos.json"
 const tienda = new Tienda(productosName);
 const { auth } = require("./middlewares/auth") // Va antes del upload.single() y después de la ruta
 const routerArticulos = require("./routes/articulos")
 const upload = require("./storage") // en el código debajo hay que agregar upload.single("Acá se coloca el atributo name del formulario de HTML") antes que (req, res) y se coloca dentro de la llave un objeto file gestionado por multer "const file = req.file"
+const {Server: SocketServer} = require("socket.io")
+const {Server: HTTPServer} = require("http")
+const personRoutes = require('./routes/person')
 
-const app = express();
-const PORT = 8080;
+const httpServer = new HTTPServer(app)
+const socketServer = new SocketServer(httpServer)
+const Contenedor = require("./utils/contenedor")
+const c = new Contenedor('./db.json')
+
 app.use(express.urlencoded({extended: true}))
 app.use(express.json())
 
@@ -40,69 +46,24 @@ app.post("/api/articulos", auth, upload.single("foto"), (req, res) => {
     res.json({succes: true})
 })
 
-
-// ---- UTILIZANDO HANDLEBARS ----
-
-/*
-const express = require ('express')
-const handlebars = require ('express-handlebars')
-const app = express()
-
-const hbs = handlebars.create({
-    extname: "hbs"
-    defaultLayout: "index.hbs"
-    layoutsDir: __dirname + "/views/layout"
-    partialsDir: __dirname + "/views/partials/"
-})
-
-app.engine("hbs", hbs.engine)
-app.set('views', './views')
-app.set('view engine', 'hbs')
-
-app.get("/", (req, res) => {
-    const articulo =
-        {"title": "REMERA",
-        "price": 4500,
-        "id": 1
-        },
-    res.sender("main", articulo)
-})
-
-// ---- UTILIZANDO PUG JS ----
-
-/*
-const express = require ('express')
-const pug = require ('pug')
-const app = express()
-
-app.set('views', './views') // ---- Especifica el directorio de visitas ----
-app.set('view engine', 'pug') // ---- Especifica el motor de plantillas ----
-
-app.get('/productos', (req, res) => {
-    res.sender('index', {
-        title: 'Coderhouse app',
-        message: 'Este es un mensaje'
-    })
-})
-
-app.get('/hello', (req, res) => {
-    res.sender('hello', {
-        mensaje: 'Hola mundo',
-        nombre: 'Juan',
-        apellido: 'Martinez',
-    })
-})
-*/
-
-// ---- USO DE EJS ----
-
-app.set('view engine', 'ejs') // ---- Especifica el motor de plantillas ----
-
 app.use(express.urlencoded({extended: true}))
 app.use(express.json())
+app.use(express.static('public'))
+app.use("/person", personRoutes)
+
+socketServer.on("connection", (socket) => {
+    console.log("Nuevo cliente conectado")
+    socketServer.emit('personas_registradas', c.getAll())
+
+    socket.on('persona_nueva', (persona) => {
+        c.save(persona)
+        socketServer.sockets.emit('personas_registradas', c.getAll())
+    })
+
+})
 
 app.get("/", (req, res) => {
-    res.render("index", {productos})
+    res.render("./public/index", {productos})
 })
 
 app.post("/productos", (req, res) => {
@@ -130,9 +91,9 @@ app.get("/productos.json", (req, res) => {
     )
 })
 
-
-const server = app.listen(PORT, () => {
-    console.log(`Servidor http escuchando el puerto ${server.address().port}`)
+const PORT = 3000;
+httpServer.listen(PORT, () => {
+    console.log(`Server listening on port ${PORT}`)
 })
 
 // req = peticion, res = respuesta
