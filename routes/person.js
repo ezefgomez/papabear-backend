@@ -5,7 +5,7 @@ const router = new Router()
 
 //routerArticulos.use(nombre_function)
 
-// ---- Practica para definir enrutador
+// ---- Practica para definir enrutador ----
 
 router.get("/", (req, res) => {
     res.json('Hola')

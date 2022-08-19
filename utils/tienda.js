@@ -1,11 +1,11 @@
 const fs = require("fs");
-const routerArticulos = require("../routes/articulos");
+const routerProductos = require("../routes/productos");
 
 const encoding = "utf-8"
 
 class tienda { 
-    constructor(articulos) {
-        this.articulos = articulos;
+    constructor(productos) {
+        this.productos = productos;
     };
 }
 
@@ -13,13 +13,13 @@ class tienda {
 
 // ---- GET api/articulos -> Devuelve todos los productos ----
 
-app.get('/api/articulos', (req, res) => {
+app.get('/api/productos', (req, res) => {
 
     getAll = async () => {
         
         try {
             
-            let data = await fs.promises.readFile( `./${this.articulo}`, "utf-8" );
+            let data = await fs.promises.readFile( `./${this.producto}`, "utf-8" );
             let content = JSON.parse(data);
             res.send(console.log(content));
 
@@ -32,16 +32,16 @@ app.get('/api/articulos', (req, res) => {
 
 })
 
-// ---- GET api/articulos/id -> Devuelve producto según id ----
+// ---- GET api/productos/id -> Devuelve producto según id ----
 
-app.get('/api/articulos:id', (req, res) => {
+app.get('/api/productos:id', (req, res) => {
 
         try {
 
-            let data = await fs.promises.readFile( `./${this.articulo}`, "utf-8" );
+            let data = await fs.promises.readFile( `./${this.producto}`, "utf-8" );
             let content = JSON.parse(data);
             // Filtrar el producto con el ID indicado y mostrarlo en consola.
-            let value = content.filter((articulo) => articulo.id == id);
+            let value = content.filter((producto) => producto.id == id);
             console.log(value);
             // Si no existe un producto con dicho ID, retorna "null".
             return value.length ? value : null;
@@ -53,15 +53,15 @@ app.get('/api/articulos:id', (req, res) => {
 
 // ---- POST api/articulos -> Agrega un producto y lo devuelve producto según id ----
 
-app.post('/api/articulos', (req, res) => {
+app.post('/api/productos', (req, res) => {
 
     try { 
             
-        let data = await fs.promises.readFile( `./${this.articulo}`, "utf-8" );
+        let data = await fs.promises.readFile( `./${this.producto}`, "utf-8" );
         if (data.length == 0) {
-            articulo.id = 1;
-            await fs.promises.writeFile( `./${this.articulo}`, JSON.stringify(new Array(articulo)) );
-            return articulo.id;
+            producto.id = 1;
+            await fs.promises.writeFile( `./${this.producto}`, JSON.stringify(new Array(producto)) );
+            return producto.id;
 
         } else {
 
@@ -69,11 +69,11 @@ app.post('/api/articulos', (req, res) => {
             // Obtener el ID más alto del arreglo de productos.
             let maxId = tienda.reduce((prev, curr) => prev.id > curr.id ? prev : curr );
             // Asignar un ID al nuevo producto.
-            articulo.id = Number(maxId.id) + 1;
+            producto.id = Number(maxId.id) + 1;
             // Agregar el objeto al arreglo de productos.
-            tienda.push(articulo);
-            await fs.promises.writeFile( `./${this.articulo}`, JSON.stringify(articulo) );
-            return articulo.id;
+            tienda.push(producto);
+            await fs.promises.writeFile( `./${this.producto}`, JSON.stringify(producto) );
+            return producto.id;
         };
 
     } catch (err) { console.log(err); };
@@ -81,7 +81,7 @@ app.post('/api/articulos', (req, res) => {
 
 // ---- PUT api/articulos:id -> Recibe y actualiza un producto según id ----
 
-app.put('/api/articulos:id', (req, res) => {
+app.put('/api/productos:id', (req, res) => {
 
     try {
 
@@ -92,24 +92,20 @@ app.put('/api/articulos:id', (req, res) => {
 
 // ---- DELETE api/articulos:id -> Elimina un producto según id ----
 
-app.delete('/api/articulos:id', (req, res) => {
+app.delete('/api/productos:id', (req, res) => {
 
     try {
 
-        let data = await fs.promises.readFile( `./${this.articulo}`, "utf-8" );
+        let data = await fs.promises.readFile( `./${this.producto}`, "utf-8" );
         let content = JSON.parse(data);
         // Filtrar los demás productos.
-        let contentEdited = content.filter((articulo) => articulo.id !== id);
-        await fs.promises.writeFile( `./${this.articulo}`, JSON.stringify(contentEdited) );
+        let contentEdited = content.filter((producto) => producto.id !== id);
+        await fs.promises.writeFile( `./${this.producto}`, JSON.stringify(contentEdited) );
         console.log(`El producto ${id} ha sido eliminado.`);
         
     } catch (err) {
         console.log(err);
     };
 })
-
-// ---- Practica para definir enrutador
-
-app.use("/api/articulos2", routerArticulos)
 
 module.exports = tienda;

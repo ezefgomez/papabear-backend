@@ -60,4 +60,4 @@ class Contenedor {
     }
 }
 
-module.exports = Contenedor // COMMONJS
+module.exports = Contenedor // COMMON JS
