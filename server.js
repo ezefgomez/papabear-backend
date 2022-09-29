@@ -27,6 +27,7 @@ const {Server: SocketServer} = require("socket.io")
 const {Server: HTTPServer} = require("http")
 
 const personRoutes = require('./routes/person')
+const testRoutes = require('./routes/test')
 
 const httpServer = new HTTPServer(app)
 const socketServer = new SocketServer(httpServer)
@@ -35,7 +36,6 @@ const c = new Contenedor('./db.json')
 
 app.use(express.urlencoded({extended: true}))
 app.use(express.json())
-
 
 app.get("/", (req, res) => {
     res.sendFile(__dirname + "./public/index", {productos})
@@ -139,6 +139,7 @@ app.use(express.urlencoded({extended: true}))
 app.use(express.json())
 app.use(express.static('public'))
 app.use("/person", personRoutes)
+app.use("/test", testRoutes)
 
 socketServer.on('connection', async socket => {    
     console.log('New client connected')    
@@ -186,6 +187,10 @@ app.get("/productos.json", (req, res) => {
     }
     )
 })
+
+// Test
+
+
 
 const PORT = 8080;
 httpServer.listen(PORT, () => {

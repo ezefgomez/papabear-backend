@@ -1,23 +1,55 @@
-import { promises as fs } from 'fs'
+const mongoose = require("mongoose")
+const config = require("../config")
+const uriString = config.uriString
+
 
 class ContenedorMongoDb {
 
-    constructor(ruta) {
-        this.ruta = ruta
-    }
-
-    async listar(id) {
-        const objs = await this.listarAll()
-        const buscado = objs.find(o => o.id == id)
-        return buscado
-    }
-
-    async listarAll() {
-        try {
-            const objs = await fs.readFile(this.ruta)
-            return JSON.parse(objs)
-        } catch (error) {
-            return []
+    constructor(model) {
+        
+        this.uriString = uriString
+        this.Model = model
+        
+        if (this.Model) {
+            this.collection = this.Model.modelName
         }
     }
+
+    async connect () {
+        try {
+            return await mongoose.connect(this.uriString)
+        } catch (err) {
+            throw new Error(`ERROR DE CONEXION + ${err}`)
+        }
+    }
+
+    // CREAR UN NUEVO DOCUMENTO EN LA COLECCIÓN
+    async save(object) {
+        try {
+            const document = new this.Model(object)
+            const result = await document.save()
+            return result
+        } catch(err) {
+            throw new Error(`MongoContainer: ERROR AL GUARDAR: ${err}`)
+        }
+    }
+
+
+    async updateById(object) {
+
+    }
+
+    async deleteById(object) {
+
+    }
+
+    async getAll(object) {
+
+    }
+
+    async getById(object) {
+
+    }
 }
+
+module.exports = ContenedorMongoDb
