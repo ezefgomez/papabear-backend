@@ -1,55 +1,86 @@
-const mongoose = require("mongoose")
-const config = require("../config")
-const uriString = config.uriString
+import mongoose from 'mongoose'
+import config from '../config'
+import { asPOJO, renameField, removeField } from '../utils/objectUtils'
 
+await mongoose.connect(config.mongodb.cnxStr, config.mongodb.options)
 
 class ContenedorMongoDb {
 
-    constructor(model) {
-        
-        this.uriString = uriString
-        this.Model = model
-        
-        if (this.Model) {
-            this.collection = this.Model.modelName
-        }
+    constructor(nombreColeccion, esquema) {
+        this.coleccion = mongoose.model(nombreColeccion, esquema)
     }
 
-    async connect () {
+    async listar(id) {
         try {
-            return await mongoose.connect(this.uriString)
-        } catch (err) {
-            throw new Error(`ERROR DE CONEXION + ${err}`)
+            const docs = await this.coleccion.find({ '_id': id }, { __v: 0 })
+            if (docs.length == 0) {
+                throw new Error('Error al listar por id: no encontrado')
+            } else {
+                const result = renameField(asPOJO(docs[0]), '_id', 'id')
+                return result
+            }
+        } catch (error) {
+            throw new Error(`Error al listar por id: ${error}`)
         }
     }
 
-    // CREAR UN NUEVO DOCUMENTO EN LA COLECCIÓN
-    async save(object) {
+    async listarAll() {
         try {
-            const document = new this.Model(object)
-            const result = await document.save()
-            return result
-        } catch(err) {
-            throw new Error(`MongoContainer: ERROR AL GUARDAR: ${err}`)
+            let docs = await this.coleccion.find({}, { __v: 0 }).lean()
+            docs = docs.map(asPOJO)
+            docs = docs.map(d => renameField(d, '_id', 'id'))
+            return docs
+        } catch (error) {
+            throw new Error(`Error al listar todo: ${error}`)
         }
     }
 
-
-    async updateById(object) {
-
+    async guardar(nuevoElem) {
+        try {
+            let doc = await this.coleccion.create(nuevoElem);
+            doc = asPOJO(doc)
+            renameField(doc, '_id', 'id')
+            removeField(doc, '__v')
+            return doc
+        } catch (error) {
+            throw new Error(`Error al guardar: ${error}`)
+        }
     }
 
-    async deleteById(object) {
-
+    async actualizar(nuevoElem) {
+        try {
+            renameField(nuevoElem, 'id', '_id')
+            const { n, nModified } = await this.coleccion.replaceOne({ '_id': nuevoElem._id }, nuevoElem)
+            if (n == 0 || nModified == 0) {
+                throw new Error('Error al actualizar: no encontrado')
+            } else {
+                renameField(nuevoElem, '_id', 'id')
+                removeField(nuevoElem, '__v')
+                return asPOJO(nuevoElem)
+            }
+        } catch (error) {
+            throw new Error(`Error al actualizar: ${error}`)
+        }
     }
 
-    async getAll(object) {
-
+    async borrar(id) {
+        try {
+            const { n, nDeleted } = await this.coleccion.deleteOne({ '_id': id })
+            if (n == 0 || nDeleted == 0) {
+                throw new Error('Error al borrar: no encontrado')
+            }
+        } catch (error) {
+            throw new Error(`Error al borrar: ${error}`)
+        }
     }
 
-    async getById(object) {
-
+    async borrarAll() {
+        try {
+            await this.coleccion.deleteMany({})
+        } catch (error) {
+            throw new Error(`Error al borrar: ${error}`)
+        }
     }
 }
 
-module.exports = ContenedorMongoDb
+export default ContenedorMongoDb

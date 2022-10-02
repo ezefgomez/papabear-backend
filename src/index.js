@@ -1,67 +1,35 @@
-const firebase = require("firebase-admin")
-const serviceAccount = require("./herencia.json")
+let productosDao
+let carritosDao
 
-firebase.initializeApp({
-    credential: firebase.credential.cert(serviceAccount),
-    databaseURL: "https://plataforma-319d4.firebaseio.com"
-});
+switch (process.env.PERS) {
+    case 'json':
+        const { default: ProductosDaoArchivo } = await import('./productos/ProductosDaoArchivo.js')
+        const { default: CarritosDaoArchivo } = await import('./carritos/CarritosDaoArchivo.js')
 
-  // Initializamos firestore
-const db = firebase.firestore();
-  // Referencia a la collection users
-const user = db.collection("users");
+        productosDao = new ProductosDaoArchivo()
+        carritosDao = new CarritosDaoArchivo()
+        break
+    case 'firebase':
+        const { default: ProductosDaoFirebase } = await import('./productos/ProductosDaoFirebase.js')
+        const { default: CarritosDaoFirebase } = await import('./carritos/CarritosDaoFirebase.js')
 
-  // CREATE A NEW USER
-const createUsuario = async () => {
-    const doc = user.doc();
-    const result = await doc.create({name: "Ezequiel", age: 27});
-    console.log(result);
-};
+        productosDao = new ProductosDaoFirebase()
+        carritosDao = new CarritosDaoFirebase()
+        break
+    case 'mongodb':
+        const { default: ProductosDaoMongoDb } = await import('./productos/ProductosDaoMongoDb.js')
+        const { default: CarritosDaoMongoDb } = await import('./carritos/CarritosDaoMongoDb.js')
 
-  // READ
-const readAll = async () => {
-    const querySnapshot = await user.get();
-    const docs = querySnapshot.docs;
-    const result = docs.map(doc => {
-    return {
-        id: doc.id,
-        name: doc.data().name,
-        age: doc.data().age
-    }
-    });
-    console.log(result);
+        productosDao = new ProductosDaoMongoDb()
+        carritosDao = new CarritosDaoMongoDb()
+        break
+    default:
+        const { default: ProductosDaoMem } = await import('./productos/ProductosDaoMem.js')
+        const { default: CarritosDaoMem } = await import('./carritos/CarritosDaoMem.js')
+
+        productosDao = new ProductosDaoMem()
+        carritosDao = new CarritosDaoMem()
+        break
 }
 
-  // READ BY ID
-const readById = async () => {
-    let id = "EfBGbUUGOmVVPB2DEggP";
-    const doc = user.doc(`${id}`);
-    const _user = await doc.get();
-    const _data = _user.data();
-    console.log({id,..._data});
-}
-
-const updateById = async () => {
-    let id = "EfBGbUUGOmVVPB2DEggP";
-    const doc = user.doc(`${id}`);
-    const _user = await doc.update({age: 35});
-    console.log(_user);
-}
-
-const deleteById = async () => {
-    let id = "EfBGbUUGOmVVPB2DEggP";
-    const doc = user.doc(`${id}`);
-    const result = await doc.delete();
-    console.log(result);
-}
-
-
-
-  // console.log(db);
-
-  // Llamados
-  // createUsuario()
-  // readAll();
-  // readById();
-  // updateById();
-deleteById();
+export { productosDao, carritosDao }
