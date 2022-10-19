@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+            integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
+            crossorigin="anonymous"
+        />
+        <link rel="stylesheet" href="/css/style.css" />
+        <script src="/socket.io/socket.io.js"></script>
+        <title>Papa Bear Supply</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" integrity="sha512-8bHTC73gkZ7rZ7vpqUQThUDhqcNFyYi2xgDgPDHc+GXVGHXq+xPjynxIopALmOPqzo9JZj0k6OqqewdGO3EsrQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    </head>
+    <body>
+        <div class="ui container">
+            <br>
+            <div class="ui middle aligned center aligned grid">
+                <div class="eight wide column">
+                    <h2 class="ui teal image header">
+                    <img src="https://cdn5.vectorstock.com/i/1000x1000/72/39/papa-bear-inspiration-lettering-design-vector-35077239.jpg" class="image">
+                    <div class="content">
+                        Bienvenido a Papabear Supply
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <!-- Inicio Formulario Producto -->
+            <h2 style="text-align: center; margin-top: 1rem">
+                Ingreso de producto
+            </h2>
+            <div class="container bg-secondary text-white p-2">
+                <div class="mb-3">
+                    <label for="title" class="form-label">Producto</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="title"
+                        name="title"
+                        placeholder="Título del producto"
+                        autocomplete="off"
+                    />
+                </div>
+                <div class="mb-3">
+                    <label for="price" class="form-label">Precio</label>
+                    <input
+                        type="number"
+                        class="form-control"
+                        id="price"
+                        name="price"
+                        placeholder="Precio en números"
+                        autocomplete="off"
+                    />
+                </div>
+                <div class="mb-3">
+                    <label for="thumbnail" class="form-label">Imagen</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="thumbnail"
+                        name="thumbnail"
+                        placeholder="Ej: https://www.iconfinder.com/icons/889376/barista_coffee_doppio_espresso_icon"
+                        autocomplete="off"
+                    />
+                </div>
+                <button
+                    type="submit"
+                    class="btn btn-primary btn-sm"
+                    id="btnForm"
+                >
+                    Agregar
+                </button>
+                <!-- Fin Formulario Producto -->
+
+                <!-- Inicio Listado Productos -->
+            </div>
+            <div id="tituloListaProductos">
+                <h2 style="text-align: center; margin: 1rem">Productos</h2>
+            </div>
+            <div class="container bg-light text-dark p-2">
+                <table class="table table-striped" id="table">
+                    <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Precio</th>
+                            <th>Imagen</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableProd">
+                        <template id="templateList">
+                            <tr>
+                                <td id="prodTitle"></td>
+                                <td id="prodPrice"></td>
+                                <td>
+                                    <img
+                                        src=""
+                                        alt="imagen"
+                                        id="prodImg"
+                                        style="width: 10%"
+                                    />
+                                </td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+                <h3 id="aviso"></h3>
+            </div>
+        </div>
+        <hr />
+        <!-- Inicio Chat -->
+        <div class="container bg-secondary text-white p-2" id="divChat">
+            <h1 style="text-align: center">Mensajes</h1>
+            <div style="display: flex; justify-content: space-around">
+                <div>
+                    <div id="ventana">
+                        <div id="pantallaOld"></div>
+                        <hr />
+                        <div id="pantalla"></div>
+                    </div>
+                </div>
+                <div>
+                    <button
+                        type="submit"
+                        id="btnOldMsg"
+                        class="btn btn-warning btn-sm"
+                    >
+                        Mensajes Guardados
+                    </button>
+                    <input
+                        type="text"
+                        id="userChat"
+                        placeholder="E-mail"
+                        required
+                    />
+                    <input
+                        type="text"
+                        id="messageChat"
+                        placeholder="Mensaje"
+                        required
+                    />
+                    <button
+                        type="submit"
+                        id="btnChat"
+                        class="btn btn-primary btn-sm"
+                    >
+                        Enviar
+                    </button>
+                </div>
+            </div>
+        </div>
+        <script src="/js/client.js"></script>
+    </body>
+</html>
