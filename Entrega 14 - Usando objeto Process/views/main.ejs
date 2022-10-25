@@ -1,0 +1,24 @@
+<%- include ('./layouts/header') -%> <%- include ('./layouts/navbar') -%> <% if
+(success !='' ) { %>
+<div class="container mt-4">
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Success:</strong><%= success %>
+        <button
+            type="button"
+            class="close"
+            data-dismiss="alert"
+            aria-label="Close"
+        >
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+</div>
+<% } %> <% if (welcome !='' || success != '') { %>
+<div class="container my-5 py-3 bg-secondary text-white text-center">
+    <h4>Bienvenido a PapaBear Supply <%= welcome %></h4>
+    <a href="/user/logout">
+        <button class="btn-sm btn-warning" type="submit">Cerrar Sesion</button>
+    </a>
+</div>
+<% } %> <%- include ('./layouts/system') -%> <%- include ('./layouts/footer')
+-%>

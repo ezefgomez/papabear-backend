@@ -1,0 +1,41 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-none">
+    <!--<a class="navbar-brand" href="#">Passport</a>-->
+    <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+    >
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="/"
+                    >Inicio <span class="sr-only">(actual)</span></a
+                >
+            </li>
+            <% if (user) { %>
+            <li class="nav-item">
+                <a class="nav-link" href="/user/main">Productos</a>
+            </li>
+            <% } else {%>
+            <li class="nav-item">
+                <a class="nav-link" href="/user/login">Iniciar sesión</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/user/register">Crear Cuenta</a>
+            </li>
+            <% } %>
+
+            <li class="nav-item">
+                <a class="nav-link" href="/info">Información</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/randoms">Randoms</a>
+            </li>
+        </ul>
+    </div>
+</nav>
