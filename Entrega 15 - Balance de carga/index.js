@@ -121,7 +121,7 @@ const PORT = args.puerto
 const startServer = () => {
     const httpServer = new HttpServer(app)
     const io = new IOServer(httpServer)
- 
+
     io.on('connection', async socket => {
         console.log(`User connected with socket id: ${socket.id}`)
         const msjs = await mensajes.getAll()
