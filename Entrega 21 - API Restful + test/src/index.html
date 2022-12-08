@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <script src="https://cdn.jsdelivr.net/npm/normalizr@3.6.1/dist/normalizr.browser.js" />
+
+        <script>
+        window.onload = () => {
+            fetch("/messages")
+            .then((response) => response.json)
+            .then((messages) => {
+                const authors = new schema.Entity("author");
+
+                const messages = new schema.Entity("messages", {
+                author: authors,
+                });
+
+                const messagesArray = new schema.Array(messages);
+
+                const denormalized = denormalize(
+                Object.keys(entities.messages),
+                messagesArray,
+                entities
+                );
+            });
+        };
+        </script>
+    </head>
+    <body></body>
+</html>
