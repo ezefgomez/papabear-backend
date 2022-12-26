@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" integrity="sha512-8bHTC73gkZ7rZ7vpqUQThUDhqcNFyYi2xgDgPDHc+GXVGHXq+xPjynxIopALmOPqzo9JZj0k6OqqewdGO3EsrQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <div class="ui container">
+        <br>
+        <div class="ui middle aligned center aligned grid">
+        <div class="eight wide column">
+            <h2 class="ui teal image header">
+            <img src="https://react.semantic-ui.com/logo.png" class="image">
+            <div class="content">
+                Ingrese el color
+            </div>
+            </h2>
+            <form action="http://localhost:8000/save" method="POST" class="ui large form">
+            <div class="ui stacked">
+                <div class="field">
+                <div class="ui left icon input">
+                    <i class="user icon"></i>
+                    <label for="color"></label>
+                    <input type="text" name="color" id="color" placeholder="Ingrese Color">
+                </div>
+                </div>
+                <button class="ui fluid large teal submit button" type="submit" value="Login">Guardar</button>
+            </div>  
+            </form>
+
+    <script >
+        async function save(){
+        try{
+            const headers={
+                'Content-Type':'application/json'
+            }
+            await axios.post(url,{color},{
+                headers:headers
+            })
+            return true
+        }catch(err){
+            console.log(err)
+        return true
+        }
+    } 
+    
+    </script>
+</body>
+</html>
