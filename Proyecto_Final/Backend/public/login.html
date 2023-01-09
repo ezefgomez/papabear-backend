@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" integrity="sha512-8bHTC73gkZ7rZ7vpqUQThUDhqcNFyYi2xgDgPDHc+GXVGHXq+xPjynxIopALmOPqzo9JZj0k6OqqewdGO3EsrQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <!-- Create a login using semantic ui -->
+    <div class="ui container">
+        <br>
+        <div class="ui middle aligned center aligned grid">
+        <div class="eight wide column">
+            <h2 class="ui teal image header">
+            <img src="https://react.semantic-ui.com/logo.png" class="image">
+            <div class="content">
+                Bienvenido, ingrese su nombre y contraseña
+            </div>
+            </h2>
+            <form action="http://localhost:8000/login" method="POST" class="ui large form">
+            <div class="ui stacked">
+                <div class="field">
+                <div class="ui left icon input">
+                    <i class="user icon"></i>
+                    <label for="username"></label>
+                    <input type="text" name="username" id="username" placeholder="Username">
+                </div>
+                </div>
+                <div class="field">
+                <div class="ui left icon input">
+                    <i class="lock icon"></i>
+                    <label for="password"></label>
+                    <input type="password" name="password" id="password" placeholder="Password">
+                </div>
+                </div>
+                <button class="ui fluid large teal submit button" type="submit" value="Login">Login</button>
+            </div>  
+            </form>
+            <br>
+            <div class="eight wide column">
+            <h4 class="ui teal image header">
+                <div class="content">
+                Si aun no esta registrado:
+                </div>
+                <button class="ui fluid large teal button"><a href="./signup.html">SignUp</a></button>
+            </h4>
+            </div>
+        </div>
+        </div>
+    </div>
+
+</body>
+</html>

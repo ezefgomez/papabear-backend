@@ -1,0 +1,53 @@
+paths:
+  /productos:
+    post:
+      summary: Add a new Product
+      tags:
+        - Product
+      requestBody:
+        required: true
+        content:
+          applications/json:
+            schema:
+              $ref: '#/components/requestBodies/NewProduct'
+          responses:
+          201:
+            description: Producto creado
+            content:
+              application/json:
+                content:
+                  schema:
+                    $ref: '#/componentes/requestBodies/NewProduct'
+    get:
+      summary: Leer todos los productos
+      tags: 
+        - productos
+      responses:
+        200:
+          description: All products
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schema/Productos'
+/productos/{id}:
+  get:
+    summary: Get Products by id
+    tags:
+      - Productos 
+    parameters: 
+      - name: id
+        in: path
+        description: Product's id
+        required: true
+        type: string
+    responses:
+    200:
+      description: producto por id
+      content:
+        application/json
+          schema:
+            $ref: '#/componentes/schema/Productos'
+    404:
+      description: Producto no encontrado

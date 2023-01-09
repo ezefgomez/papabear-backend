@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" integrity="sha512-8bHTC73gkZ7rZ7vpqUQThUDhqcNFyYi2xgDgPDHc+GXVGHXq+xPjynxIopALmOPqzo9JZj0k6OqqewdGO3EsrQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <!-- Create a login using semantic ui -->
+    <div class="ui container">
+        <br>
+        <div class="ui middle aligned center aligned grid">
+        <div class="eight wide column">
+            <h2 class="ui teal image header">
+            <img src="https://react.semantic-ui.com/logo.png" class="image">
+            <div class="content">
+                Bienvenido, Registrese en el siguiente formulario
+            </div>
+            </h2>
+            <form class="ui large form" action="/signup" method="POST">
+            <div class="ui stacked">
+                <div class="field">
+                <div class="ui left icon input">
+                    <i class="user icon"></i>
+                    <label for="name"></label>
+                    <input type="text" name="name" id="name"  placeholder="Nombre" required>
+                </div>
+                </div>
+                <div class="field">
+                <div class="ui left icon input">
+                    <i class="user icon"></i>
+                    <label for="direccion"></label>
+                    <input type="text" name="address" id="address"  placeholder="Direccion" required>
+                </div>
+                </div>
+                <div class="field">
+                <div class="ui left icon input">
+                    <i class="user icon"></i>
+                    <label for="edad"></label>
+                    <input type="date" name="age" id="age"  placeholder="Fecha de nacimiento" required>
+                </div>
+                </div>
+                <div class="field">
+                <div class="ui left icon input">
+                    <i class="user icon"></i>
+                    <label for="tel"></label>
+                    <input type="tel" name="tel" id="tel"  placeholder="Telefono" required>
+                </div>
+                </div>
+                <div class="field">
+                <div class="ui left icon input">
+                    <i class="user icon"></i>
+                    <label for="email"></label>
+                    <input type="text" name="username" id="username"  placeholder="Email" required>
+                </div>
+                </div>
+                <div class="field">
+                <div class="ui left icon input">
+                    <i class="lock icon"></i>
+                    <label for="password"></label>
+                    <input type="password" name="password" id="password" placeholder="Password" required>
+                </div>
+                </div>
+                <div class="field">
+                    <div class="ui left icon input">
+                    <i class="lock icon"></i>
+                    <br>
+                    <label for="avatar"></label>
+                    <input type="text" name="avatar" id="avatar" placeholder="Avatar" required>
+                    </div>
+                </div>
+                <button class="ui fluid large teal submit button" type="submit">Sign Up</button>
+            </div>  
+            </form>
+            <br>
+            <div class="eight wide column">
+            <h4 class="ui teal image header">
+                <div class="content">
+                Si ya se encuentra registrado dirigase al Login
+                </div>
+                <button class="ui fluid large teal button"><a href="./login.html">Login</a></button>
+            </h4>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <!--   <script src="./js/signup.js"> -->
+    
+    </script>
+</body>
+</html>

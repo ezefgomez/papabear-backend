@@ -1,0 +1,26 @@
+<div>
+    <h1  style="color:grey">Mis carritos</h1>
+    <div class="d-flex justify-content-center">
+    <table  class="mt-2 mb-2 text-center">
+        <thead style="color:grey"></thead>
+            <th>Nombre</th>
+            <th>Precio</th>
+            <th>Descripcion</th>
+            <th>Imagen</th>
+            <th>Stock</th>
+        </thead>
+        <tbody>
+        {{#each response}}
+        <tr>
+            <td>{{response.title}}</td>
+            <td>$ {{response.price}}</td>
+            <td>{{response.description}}</td>
+            <td><img style="width:30%" src={{response.image}}></td>
+            <th>{{response.stock}}</th>
+        </tr>
+    {{/each}}
+        </tbody>
+    </table>
+    </div>
+    <button  type="button" class="btn btn-dark"> <a href="../">Volver</a></button>
+</div>

@@ -1,0 +1,30 @@
+[
+    {
+        "title": "Buzo hombre",
+        "price": "12500",
+        "image": "https://d3ugyf2ht6aenh.cloudfront.net/stores/001/924/058/products/hq4018-13-21-9fc856bf55a47ee07116551486707870-1024-1024.jpeg",
+        "id_productos": "1",
+        "time":1660783441184
+    },
+    {
+        "title": "Pantalon hombre",
+        "price": "13600",
+        "image": "https://http2.mlstatic.com/D_NQ_NP_958413-MLA50628435201_072022-W.jpg",
+        "id_productos": "2",
+        "time":1660783441184
+    },
+    {
+        "title": "Billetera unisex",
+        "price": "850",
+        "image": "https://http2.mlstatic.com/D_NQ_NP_999223-MLA46751712500_072021-O.jpg",
+        "id_productos": "3",
+        "time":1660783441184
+    },
+    {
+        "title": "Marihuana medicinal",
+        "price": "15000",
+        "image": "https://canalshowsport.com.ar/wp-content/uploads/2020/07/doctor-holds-marijuana.jpg",
+        "id_productos": "4",
+        "time":1660783441184
+    }
+]

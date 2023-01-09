@@ -1,0 +1,30 @@
+components:
+  schema:
+    Productos:
+      type: object 
+      required:
+        - title
+        - price
+        - categoria
+        - description
+        - stock
+        - image
+      properties:
+        - title:
+          type: string
+          description: product title
+        - price:
+          type: number
+          description: type
+        - categoria:
+          type: string
+          description: categoria
+        - stock:
+          type: number
+          description: stock
+        - image:
+          type: string
+          descritpion: product image
+    requestBodies:
+      NewProduct:
+        $ref: '#/components/schemas/Productos'
